@@ -13,3 +13,8 @@ app.use('/', route);
 app.listen(process.env.PORT || 3000, function() {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
+
+function add(a,b){
+    return a + b;
+}
+console.log(add(2,3))
