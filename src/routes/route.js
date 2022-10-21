@@ -18,6 +18,8 @@ router.get('/hello', function (req, res) {
     res.send('Hello there!')
 });
 
+
+
 router.get('/candidates', function(req, res){
     console.log('Query paramters for this request are '+JSON.stringify(req.query))
     let gender = req.query.gender
