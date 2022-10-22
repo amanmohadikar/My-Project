@@ -14,15 +14,21 @@ router.post("/createUser", async function (req, res) {
     res.send({msg: savedData})
 })
 
-router.post("/createUsers", async function (req, res) {
+router.post("/createUser2", async function (req, res) {
     let data= req.body
     let savedData= await bookModel.create(data)
     res.send({msg: savedData})
 })
+
 
 router.get("/getUsersData", async function (req, res) {
     let allUsers= await UserModel.find()
     res.send({msg: allUsers})
 })
 
+
+router.get("/getUsersData2", async function (req, res) {
+    let allUsers= await bookModel.find()
+    res.send({msg: allUsers})
+})
 module.exports = router;
