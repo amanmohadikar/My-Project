@@ -14,7 +14,15 @@ router.post("/createUser", async function (req, res) {
     res.send({msg: savedData})
 })
 
-// createBook : to create a new entry..use this api to create 11+ entries in your collection
+
+router.get("/getUser", async function (req, res) {
+    let allUsers= await UserModel.find()
+    res.send({msg: allUsers})
+})
+
+
+
+// 1. createBook : to create a new entry..use this api to create 11+ entries in your collection
 
 router.post("/createBook", async function (req, res) {
     let data= req.body
@@ -24,10 +32,12 @@ router.post("/createBook", async function (req, res) {
 
 // All Data
 
-router.get("/getBooksData1", async function (req, res) {
+router.get("/getBook", async function (req, res) {
     let allBooks= await bookModel.find()
     res.send({msg : allBooks})
 })
+
+
 
 
 
@@ -124,8 +134,4 @@ router.get("/getRandomBooks", async function (req, res) {
 // })
 
 
-router.get("/getUsersData", async function (req, res) {
-    let allUsers= await UserModel.find()
-    res.send({msg: allUsers})
-})
 module.exports = router;

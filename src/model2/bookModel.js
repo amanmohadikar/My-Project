@@ -9,9 +9,11 @@ const bookSchema = new mongoose.Schema({
     },
 
     price : {
-        type : Number,
+        type : String,
+        // enum : ["Indian","europ"]
       
     },
+  
 
     year : {
         type : Number,
