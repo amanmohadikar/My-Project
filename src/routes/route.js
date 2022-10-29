@@ -61,11 +61,11 @@ router.get("/getPublishData", async function (req, res) {
 
 
 
-// router.post("/createBook", async function (req, res) {
-//     let book = req.body
-//     let bookCreated = await bookModel.create(book)
-//     return res.send({data: bookCreated})
-// } )
+router.post("/createBook", async function (req, res) {
+    let book = req.body
+    let bookCreated = await bookModel.create(book)
+    return res.send({data: bookCreated})
+} )
 
 
 // 3(a) = The authorId is present in the request body. 
