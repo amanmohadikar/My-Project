@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authorModel= require("../models/bookModel.js")
-const bookModel= require("../model2/authorModel.js")
+const bookModel= require("../models/bookModel.js")
+const authorModel= require("../models/authorModel.js")
 
 
 router.get("/test-me", function (req, res) {
@@ -10,43 +10,45 @@ router.get("/test-me", function (req, res) {
 
 
 
-// 1. Write create APIs for both books and authors ---> 
+// 1. create APIs for both books and authors ---> 
 // If author_id is not available then do not accept the 
 // entry(in neither the author collection nor the books collection)
 
 
-router.post("/Author", async function (req, res) {
+router.post("/book", async function (req, res) {
     let data= req.body
-    let savedData= await authorModel.create(data)
+    let savedData= await bookModel.create(data)
     res.send({msg: savedData})
 })
 
 
-router.get("/Author", async function (req, res) {
-    let allBooks= await authorModel.find()
+router.get("/book", async function (req, res) {
+    let allBooks= await bookModel.find()
     res.send({msg : allBooks})
 })
 
 
-// 3. Find the author of “Two states” and update the book price to 100;  
-// Send back the author_name and updated price in response.  
+
+
+
+
+// 3. Update “Two states” book price to 100;  
+// Send back the updated price in response.  
 // ( This will also need 2  queries- 1st will be a findOneAndUpdate. 
 // The second will be a find query aith author_id from previous query)
 
-// update the price of two states book
-
 router.get("/books1", async function (req, res) {
-    let allUsers= await authorModel.findOneAndUpdate({name : "Two states"}, {price : 100},{ new: true , upsert: true})
+    let allUsers= await bookModel.findOneAndUpdate({name : "Two states"}, {price : 100},{ new: true , upsert: true})
     res.send({msg: allUsers})
 })
 
 
-router.post("/books1", async function (req, res) {
-    let data = req.body
-    let allUsers= await authorModel.updateMany({name : "Two states"}, {$set : data})
+// router.post("/books1", async function (req, res) {
+//     let data = req.body
+//     let allUsers= await bookModel.updateMany({name : "Two states"}, {$set : data})
     
-    res.send({msg: allUsers})
-})
+//     res.send({msg: allUsers})
+// })
 
 
 
@@ -60,27 +62,26 @@ router.post("/books1", async function (req, res) {
 // If author_id is not available then do not accept the 
 // entry(in neither the author collection nor the books collection)
 
-router.post("/books", async function (req, res) {
+router.post("/author", async function (req, res) {
     let data= req.body
-    let savedData= await bookModel.create(data)
+    let savedData= await authorModel.create(data)
     res.send({msg: savedData})
 })
 
 
-router.get("/books", async function (req, res) {
-    let allUsers= await bookModel.find()
+router.get("/author", async function (req, res) {
+    let allUsers= await authorModel.find()
     res.send({msg: allUsers})
 })
 
 
 
 
-// 4. Find the books which costs between 50-100(50,100 inclusive) and respond back with the author names of respective books.. 
-// bookModel.find( { price : { $gte: 50, $lte: 100} } ).select({ author_id :1})..run a map(or forEach) loop 
-// and get all the authorName corresponding to the authorId’s ( by querying authorModel)
+// 4. Find the books which costs between 50-100(50,100 inclusive) and respond back with the respective books.. 
+
 
 router.get("/booksPrice", async function (req, res) {
-    let allUsers= await authorModel.find({price : {$gte : 50 , $lte : 100}}).select({name : 1})
+    let allUsers= await bookModel.find({price : {$gte : 50 , $lte : 100}}).select({name : 1})
     res.send({msg: allUsers})
 })
 
@@ -92,16 +93,14 @@ router.get("/booksPrice", async function (req, res) {
 //     Then next query will get the list of books with that author_id )
 
 router.get("/booksOfChetan", async function (req,res){
-    let allUsers = await bookModel.find({author_name : "Chetan Bhagat"}).select({author_id : 1})
+    let allUsers = await authorModel.find({author_name : "Chetan Bhagat"}).select({author_id : 1,})
     res.send({msg : allUsers})
 })
 
 
-// router.post("/createUser", async function (req, res) {
-//     let data= req.body
-//     let savedData= await UserModel.create(data)
-//     res.send({msg: savedData})
-// })
+
+
+
 
 
 // const { count } = require("console")
