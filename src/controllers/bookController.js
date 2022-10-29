@@ -1,13 +1,14 @@
-const bookModel= require("../models/newBook")
+// const bookModel= require("../models/newBook")
 
 
 // 3. Write a POST api that creates a book from the details in the request body. 
 
-const createBook= async function (req, res) {
-    let book = req.body
-    let bookCreated = await bookModel.create(book)
-    return res.send({data: bookCreated})
-}
+
+// const createBook= async function (req, res) {
+//     let book = req.body
+//     let bookCreated = await bookModel.create(book)
+//     return res.send({data: bookCreated})
+// }
 
 
 // 3(a) = The authorId is present in the request body. 
@@ -15,7 +16,7 @@ const createBook= async function (req, res) {
 
 
 // const createBook= async function (req, res) {
-//     const {author, name} = req.body
+//     const {author} = req.body
 
 //     if(!author){
 //         return res.send("authorId is required")
@@ -31,7 +32,7 @@ const createBook= async function (req, res) {
 // If not then send an error message that the author is not present.
 
 // const createBook= async function (req, res) {
-//     const {author, name} = req.body
+//     const {author} = req.body
 
 //     if(!author){
 //         return res.send("authorId is required")
@@ -88,10 +89,10 @@ const createBook= async function (req, res) {
 
 
 
-const getBooksData= async function (req, res) {
-    let books = await bookModel.find()
-    return res.send({data: books})
-}
+// const getBooksData= async function (req, res) {
+//     let books = await bookModel.find()
+//     return res.send({data: books})
+// }
 
 
 
@@ -106,12 +107,15 @@ const getBooksData= async function (req, res) {
 // 4. Write a GET api that fetches all the books along with their author details 
 // (you have to populate for this) as well the publisher details (you have to populate for this) 
 
-const getBooksWithAuthorDetails = async function (req, res) {
-    let specificBook = await bookModel.find().populate('publisher').populate("author")
-    return res.send({data: specificBook})
-}
+
+// const getBooksWithAuthorDetails = async function (req, res) {
+//     let specificBook = await bookModel.find().populate('publisher').populate("author")
+//     return res.send({data: specificBook})
+// }
 
 
-module.exports.createBook= createBook
-module.exports.getBooksData= getBooksData
-module.exports.getBooksWithAuthorDetails = getBooksWithAuthorDetails
+// module.exports.createBook= createBook
+// module.exports.getBooksData= getBooksData
+// module.exports.getBooksWithAuthorDetails = getBooksWithAuthorDetails
+
+

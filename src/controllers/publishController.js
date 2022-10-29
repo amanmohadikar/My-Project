@@ -1,7 +1,7 @@
-const publishModel= require("../models/newPublisher")
+// const publishModel= require("../models/newPublisher")
 
 
-// 2. Write a POST api that creates a publisher from the details in the request body
+// // 2. Write a POST api that creates a publisher from the details in the request body
 
 // const createPublisher= async function (req, res) {
 //     let author = req.body
@@ -9,12 +9,13 @@ const publishModel= require("../models/newPublisher")
 //     res.send({data: publishCreated})
 // }
 
-const getPublishData= async function (req, res) {
-    let authors = await publishModel.find()
-    res.send({data: authors})
-}
+
+// const getPublishData= async function (req, res) {
+//     let authors = await publishModel.find()
+//     res.send({data: authors})
+// }
 
 
 
-module.exports.createPublisher= createPublisher
-module.exports.getPublishData= getPublishData
+// module.exports.createPublisher= createPublisher
+// module.exports.getPublishData= getPublishData
