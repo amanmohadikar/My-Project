@@ -50,10 +50,11 @@ router.get("/bookList", async function (req, res) {
 })
 
 
+// ●	getRandomBooks - returns books that are available in stock or have more than 500 pages 
 // getRandomBooks - returns books that have more than 500 pages 
 
 router.get("/getRandomBooks", async function (req, res) {
-    let allBooks= await bookModel.find({ totalPages: { $gt:  500 }}) 
+    let allBooks= await bookModel.find({$or : [{ totalPages: { $gt:  500 }}, {stockAvailable : true} ]}) 
     res.send({msg : allBooks})
 })
 
