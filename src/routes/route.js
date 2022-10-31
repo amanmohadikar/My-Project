@@ -28,27 +28,17 @@ router.get("/book", async function (req, res) {
 })
 
 
-
-
-
-
-// 3. Update “Two states” book price to 100;  
-// Send back the updated price in response.  
+// 3	find the author of “Two states” and update the book price to 100;  
+// Send back the author_name and updated price in response.  
 // ( This will also need 2  queries- 1st will be a findOneAndUpdate. 
-// The second will be a find query aith author_id from previous query)
+//     The second will be a find query aith author_id from previous query)
+
 
 router.get("/books1", async function (req, res) {
     let allUsers= await bookModel.findOneAndUpdate({name : "Two states"}, {price : 100},{ new: true , upsert: true})
-    res.send({msg: allUsers})
+    let a = await bookModel.find(allUsers).select({name : 1,price : 1})
+    res.send({msg: a})
 })
-
-
-// router.post("/books1", async function (req, res) {
-//     let data = req.body
-//     let allUsers= await bookModel.updateMany({name : "Two states"}, {$set : data})
-    
-//     res.send({msg: allUsers})
-// })
 
 
 
@@ -76,15 +66,26 @@ router.get("/author", async function (req, res) {
 
 
 
-
-// 4. Find the books which costs between 50-100(50,100 inclusive) and respond back with the respective books.. 
+// 4  Find the books which costs between 50-100(50,100 inclusive) and respond back with the author names of respective books.. 
 
 
 router.get("/booksPrice", async function (req, res) {
-    let allUsers= await bookModel.find({price : {$gte : 50 , $lte : 100}}).select({name : 1})
+    let allUsers= await bookModel.find({price : {$gte : 50 , $lte : 100}}).select({_id : 0})
     res.send({msg: allUsers})
 })
 
+
+
+// 2	List out the books written by "Chetan Bhagat" ( this will need 2 DB queries one after another- 
+//     first query will find the author_id for "Chetan Bhagat”. Then next query will get the list of books with that author_id )
+
+//     router.get("/booksOfChetan1", async function(req, res){
+//     let booksOfCb = await authorModel.find({author_name: "Chetan Bhagat"}).select("author_id")
+//     console.log(booksOfCb)
+//     let finalData = await authorModel.find({author_id:booksOfCb[0].author_id})
+//     console.log(finalData)
+//     res.send({msg:finalData})
+// })
 
 
 

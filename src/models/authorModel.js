@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const authorSchema = new mongoose.Schema(
     {    
 
-        author_id:Number,
+        author_id:{
+            type : Number,
+            required : true
+        },
         author_name:String,
         age:Number,
         address:String
@@ -12,5 +15,4 @@ const authorSchema = new mongoose.Schema(
 
 
 
-
-module.exports = mongoose.model('bookes', authorSchema) //users
+module.exports = mongoose.model('bookes', authorSchema)
