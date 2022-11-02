@@ -27,9 +27,10 @@ router.post("/productUser1", productController.createProduct)
 
 router.post("/orderUser1", orderController.createOrder)
 
+// router.get("/getUser1", orderController.getOrder)
 
-// router.get("/getBooksWithAuthorDetails", async function (req, res) {
-//     let specificBook = await Models.find().populate('UserDocument').populate("productDocument")
+// router.get("/orderUser1", async function (req, res) {
+//     let specificBook = await orderController.find().populate('UserDocument').populate("productDocument")
 //     return res.send({data: specificBook})
 // })
 

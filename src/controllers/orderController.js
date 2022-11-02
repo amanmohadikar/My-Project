@@ -20,6 +20,14 @@ const createOrder= async function (req, res) {
 }
 
 
+// const getOrder = async function (req, res) {
+//     let specificBook = await orderModel.find()//.populate('UserDocument').populate("productDocument")
+//     return res.send({data: specificBook})
+// }
+
+
 module.exports.createAuthor= createAuthor
 module.exports.createOrder= createOrder
+// module.exports.getOrder= getOrder
+
 
