@@ -21,7 +21,7 @@ router.post("/createUser", commonMW.myMiddleware, UserController.createUser)
 
 
 
-router.post("/createUser1", UserController.createUser)
+router.post("/createUser1", UserController.createUser1)
 
 router.post("/productUser1", productController.createProduct)
 

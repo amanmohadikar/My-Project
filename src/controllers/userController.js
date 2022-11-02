@@ -1,9 +1,6 @@
 const UserModel= require("../models/userModel")
 
-const createUser1 = async function(req,res){
-    let body = req.body
-    res.send({msg : body})
-}
+
 
 
 const basicCode= async function(req, res, next) {
@@ -31,6 +28,15 @@ const createUser= async function (req, res) {
     console.log("The updated headers attribute of this request is: ",req.headers)
 
     res.send({msg: "Hi"})
+}
+
+
+
+const createUser1= async function (req, res) {
+    let data= req.body
+
+    let savedData= await UserModel.create(data)
+    res.send({msg: savedData})
 }
 
 const getUsersData= async function (req, res) {
