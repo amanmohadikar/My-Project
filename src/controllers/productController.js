@@ -1,5 +1,5 @@
 const { count } = require("console")
-const BookModel = require("../models/bookModel")
+const BookModel = require("../models/productModel")
 
 const createBook= async function (req, res) {
     let data= req.body
@@ -10,7 +10,12 @@ const createBook= async function (req, res) {
 
 
 
+const createProduct= async function (req, res) {
+    let data= req.body
 
+    let savedData= await BookModel.create(data)
+    res.send({msg: savedData})
+}
 
 
 const getBooksData = async function (req, res) {
@@ -71,7 +76,7 @@ const totalSalesPerAuthor = async function (req, res) {
 // DELETE
 
 
-
+module.exports.createProduct = createProduct
 module.exports.createBook = createBook
 module.exports.getBooksData = getBooksData
 module.exports.updateBooks = updateBooks

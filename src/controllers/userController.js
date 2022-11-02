@@ -1,6 +1,9 @@
 const UserModel= require("../models/userModel")
 
-
+const createUser1 = async function(req,res){
+    let body = req.body
+    res.send({msg : body})
+}
 
 
 const basicCode= async function(req, res, next) {
@@ -35,6 +38,9 @@ const getUsersData= async function (req, res) {
     res.send({msg: allUsers})
 }
 
+
+
+module.exports.createUser1= createUser1
 module.exports.createUser= createUser
 module.exports.getUsersData= getUsersData
 module.exports.basicCode= basicCode
