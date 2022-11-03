@@ -4,15 +4,30 @@ const userModel = require("../models/userModel");
 /*
   Read all the comments multiple times to understand why we are doing what we are doing in login api and getUserData api
 */
-const createUser = async function (abcd, xyz) {
-  //You can name the req, res objects anything.
-  //but the first parameter is always the request 
-  //the second parameter is always the response
-  let data = abcd.body;
+// - Write a **POST api /users** to register a user from the user details in request body. 
+
+const createUser = async function (req, res) {
+  let data = req.body;
   let savedData = await userModel.create(data);
-  console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
+  console.log(req.newAtribute);
+  res.send({ msg: savedData });
 };
+
+
+
+
+
+// - Write a ***POST api /login** to login a user that takes user details - email and password from the request body. 
+// If the credentials don't match with any user's data return a suitable error.
+// On successful login, generate a JWT token and return it in response body. Example 
+// ```
+// {
+//     status: true,
+//     data: {
+//         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+//     }
+//  }
 
 const loginUser = async function (req, res) {
   let userName = req.body.emailId;
@@ -31,17 +46,23 @@ const loginUser = async function (req, res) {
   // The decision about what data to put in token depends on the business requirement
   // Input 2 is the secret (This is basically a fixed value only set at the server. This value should be hard to guess)
   // The same secret will be used to decode tokens 
-  let token = jwt.sign(
-    {
-      userId: user._id.toString(),
-      batch: "thorium",
-      organisation: "FunctionUp",
-    },
+  let token = jwt.sign({
+    userId: user._id.toString(),
+    batch: "thorium",
+    organisation: "FunctionUp",
+  },
     "functionup-plutonium-very-very-secret-key"
   );
   res.setHeader("x-auth-token", token);
   res.send({ status: true, token: token });
 };
+
+
+
+// - Write a **GET api /users/:userId** to fetch user details. Pass the userId as path param 
+// in the url. Check that request must contain **x-auth-token** header. If absent, return a suitable error.
+// If present, check that the token is valid.
+
 
 const getUserData = async function (req, res) {
   let token = req.headers["x-Auth-token"];
@@ -74,6 +95,15 @@ const getUserData = async function (req, res) {
   // Note: Try to see what happens if we change the secret while decoding the token
 };
 
+
+
+
+// Write a **PUT api /users/:userId** to update user details. Pass the userId as path param in the 
+// url and update the attributes received in the request body. Check that request must contain 
+// **x-auth-token** header. If absent, return a suitable error.
+
+
+
 const updateUser = async function (req, res) {
   // Do the same steps here:
   // Check if the token is present
@@ -92,7 +122,22 @@ const updateUser = async function (req, res) {
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+
+
+
+
+
+const deleteUser = async function (req, res) {
+  let userData = req.body;
+  let deletedUser = await userModel.findOneAndDelete(userData);
+  res.send({ status: true, data: deletedUser });
+};
+
+
+
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteUser = deleteUser;
+
