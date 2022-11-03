@@ -17,7 +17,15 @@ router.post("/createBook", commonMW.myMiddleware,productController.createBook, f
     res.send("Ending the cycle")
 }  )
 
+
+
 router.post("/createUser", commonMW.myMiddleware, UserController.createUser)
+
+
+
+
+router.post("/createUser2", commonMW.headerValidation, UserController.createUser)
+
 
 
 
@@ -27,12 +35,7 @@ router.post("/productUser1", productController.createProduct)
 
 router.post("/orderUser1", orderController.createOrder)
 
-// router.get("/getUser1", orderController.getOrder)
 
-// router.get("/orderUser1", async function (req, res) {
-//     let specificBook = await orderController.find().populate('UserDocument').populate("productDocument")
-//     return res.send({data: specificBook})
-// })
 
 
 
