@@ -11,9 +11,11 @@ const createBook= async function (req, res) {
 
 
 const createProduct= async function (req, res) {
-    let data= req.body
-
-    let savedData= await BookModel.create(data)
+    let {name, category, price}= req.body
+    if(!name || !category || !price){
+        return res.send({msg : "All field is required"})
+    }
+    let savedData= await BookModel.create({name, category, price})
     res.send({msg: savedData})
 }
 

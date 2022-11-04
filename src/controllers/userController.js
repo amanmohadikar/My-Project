@@ -33,9 +33,15 @@ const createUser= async function (req, res) {
 
 
 const createUser1= async function (req, res) {
-    let data= req.body
+    let {name,address,balance}= req.body
 
-    let savedData= await UserModel.create(data)
+    let isFreeAppUser = req.isFreeAppUser
+    isFreeAppUser = isFreeAppUser === "true" ? true : false
+
+    if (!name || !address || !balance){
+        return res.send({msg : "All field is mandatory"})
+    }
+    let savedData= await UserModel.create({name,address,balance})
     res.send({msg: savedData})
 }
 

@@ -19,6 +19,25 @@ const createOrder= async function (req, res) {
 
 }
 
+const createUser= async function (req, res) {
+    let {product, user}= req.body
+
+    let isFreeAppUser = req.isFreeAppUser
+    isFreeAppUser = isFreeAppUser === "true" ? true : false
+
+    if (!product || !user){
+        return res.send({msg : "All field is mandatory"})
+    }
+    let savedData= await orderModel.create({product, user})
+    res.send({msg: savedData})
+}
+
+const getcreateOrderDetails= async function (req, res) {
+    let allUsers= await UserModel.find()
+    res.send({msg: allUsers})
+}
+
+
 
 // const getOrder = async function (req, res) {
 //     let specificBook = await orderModel.find()//.populate('UserDocument').populate("productDocument")
@@ -27,7 +46,7 @@ const createOrder= async function (req, res) {
 
 
 module.exports.createAuthor= createAuthor
-module.exports.createOrder= createOrder
-// module.exports.getOrder= getOrder
+module.exports.createUser= createUser
+module.exports.getcreateOrderDetails= getcreateOrderDetails
 
 

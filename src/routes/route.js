@@ -23,7 +23,6 @@ router.post("/createUser", commonMW.myMiddleware, UserController.createUser)
 
 
 
-
 router.post("/createUser2", commonMW.headerValidation, UserController.createUser)
 
 
@@ -31,9 +30,9 @@ router.post("/createUser2", commonMW.headerValidation, UserController.createUser
 
 router.post("/createUser1", UserController.createUser1)
 
-router.post("/productUser1", productController.createProduct)
+router.post("/createProduct", productController.createProduct)
 
-router.post("/orderUser1", orderController.createOrder)
+router.post("/orderUser1", orderController.createUser)
 
 
 
