@@ -11,15 +11,12 @@ const basicCode= async function(req, res, next) {
     }
 
 const createUser= async function (req, res) {
-    // Remember that inside request object we already know multiple attributes
-    // Examples - body(req.body), query(req.query), params(req.params)
     let body = req.body
     let headers = req.headers
     console.log("The body attribute of this request is: ", body)
     console.log("The headers attribute of thisd request is: ",headers)
     let hostValue = headers.host
     console.log("The host header of this request is: ",hostValue)
-    // Bracket notation is safe to use when dealing with keys that have a hyphen
     let contentType = headers["content-type"]
     console.log("The content type header of this request is: ",contentType)
     
@@ -35,7 +32,7 @@ const createUser= async function (req, res) {
 const createUser1= async function (req, res) {
     let {name,address,balance}= req.body
 
-    let isFreeAppUser = req.isFreeAppUser
+    let isFreeAppUser = req.headers.isFreeAppUser
     isFreeAppUser = isFreeAppUser === "true" ? true : false
 
     if (!name || !address || !balance){
@@ -44,6 +41,7 @@ const createUser1= async function (req, res) {
     let savedData= await UserModel.create({name,address,balance})
     res.send({msg: savedData})
 }
+
 
 const getUsersData= async function (req, res) {
     let allUsers= await UserModel.find()
