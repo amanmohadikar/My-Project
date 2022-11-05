@@ -22,21 +22,6 @@ const mid4= function ( req, res, next) {
 
 
 
-
-// const headerValidation = function(req, res, next){
-
-//     let isFreeAppUser = req.headers.isfreeappuser
-
-//     if(!isFreeAppUser){
-//         return res.send({msg : "mandatory is not present"})
-//     }else{
-//         isFreeAppUser = isFreeAppUser.toLowerCase() === "true" ? true:false
-//         req.isFreeAppUser = isFreeAppUser
-//         console.log("isFreeAppUser is added")
-//         next()    
-//     }
-// }
-
 const headerValidation = function(req, res, next){
      isFreeAppUser = req.headers.isfreeappuser
 
