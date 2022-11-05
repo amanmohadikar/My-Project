@@ -21,19 +21,49 @@ const mid4= function ( req, res, next) {
 }
 
 
+// const headerValidation = async function(req,res,next){               
+   
+//     let data=req.headers
+//     let validinfo=data["isfreeappuser"]
+//     if(validinfo){
+//         if(validinfo=="true"){
+//             req.isfreeappuser=true
+//         }else{
+//             req.isfreeappuser=false
+//         }
+//         next();
+//     }else{
+//         res.send({data:"header missing"})
+//     }
+//     }
+
+
 
 const headerValidation = function(req, res, next){
-    const isFreeAppUser = req.headers.isfreeappuser
-    if(isFreeAppUser){
-        console.log("isFreeAppUser is added")
-        console.log("----------------------------------")
-        next()
-    }else{
+
+    let isFreeAppUser = req.headers.isfreeappuser
+
+    if(!isFreeAppUser){
         return res.send({msg : "mandatory is not present"})
+    }else{
+        isFreeAppUser = isFreeAppUser.toLowerCase() === "true" ? true:false
+        req.isFreeAppUser = isFreeAppUser
+        console.log("isFreeAppUser is added")
+        next()    
     }
 }
 
+// const headerValidation = function(req, res, next){
 
+//      isFreeAppUser = req.headers.isfreeappuser
+
+//     if(isFreeAppUser){
+//         next()
+//     } else {
+//         res.send({msg:"header is mandatory"})
+//     }
+    
+// }
 
 module.exports.mid1= mid1
 module.exports.mid2= mid2

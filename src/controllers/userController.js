@@ -10,7 +10,7 @@ const basicCode= async function(req, res, next) {
     next()
     }
 
-const createUser= async function (req, res) {
+const createUser = async function (req, res) {
     let body = req.body
     let headers = req.headers
     console.log("The body attribute of this request is: ", body)
@@ -20,6 +20,7 @@ const createUser= async function (req, res) {
     let contentType = headers["content-type"]
     console.log("The content type header of this request is: ",contentType)
     
+    req.headers.day = "Saturday"
     //Set a header in request
     req.headers.year = 2022
     console.log("The updated headers attribute of this request is: ",req.headers)

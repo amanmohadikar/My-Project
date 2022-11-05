@@ -1,23 +1,30 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    name: {
+        type : String,
+        required : true
+    },
 
-    name: String,
     balance: {
         type: Number,
         default: 100
-    }, // Default balance at user registration is 100
-    address: String,
+    }, 
+
+    address: {type : String,
+        required : true},
+
     age: Number,
+
     gender: {
         type: String,
         enum: ["male", "female", "other"]
-    },  // Allowed values are - “male”, “female”, “other”
+        }, 
+
     isFreeAppUser: {
         type: Boolean,
         default: false
-    } // Default false value.
-
+    } 
 
 }, { timestamps: true });
 
