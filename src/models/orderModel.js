@@ -19,11 +19,6 @@ const orderSchema = new mongoose.Schema( {
         required : true
     },
 
-	isFreeAppUser: {
-        type : Boolean,
-        required : true
-    },
-
 	date: String
 
 }, { timestamps: true });

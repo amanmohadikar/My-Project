@@ -1,5 +1,5 @@
 const { count } = require("console")
-const BookModel = require("../models/productModel")
+const productModel = require("../models/productModel")
 
 
 
@@ -8,7 +8,7 @@ const createProduct= async function (req, res) {
     if(!name || !category || !price){
         return res.send({msg : "All field is required"})
     }
-    let savedData= await BookModel.create({name, category, price})
+    let savedData= await productModel.create({name, category, price})
     res.send({msg: savedData})
 }
 
