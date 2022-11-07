@@ -28,13 +28,7 @@ const loginUser = async function (req, res) {
   // Input 2 is the secret
   // The same secret will be used to decode tokens
   let token = jwt.sign(
-    {
-      userId: user._id.toString(),
-      batch: "thorium",
-      organisation: "FUnctionUp",
-    },
-    "functionup-thorium"
-  );
+    {userId: user._id.toString(),},"Not secret key");
   res.setHeader("x-auth-token", token);
   res.send({ status: true, data: token });
 };
@@ -45,14 +39,14 @@ const getUserData = async function (req, res) {
   //If no token is present in the request header return error
   if (!token) return res.send({ status: false, msg: "token must be present" });
 
-  console.log(token);
+  console.log("This is token :", token);
 
   // If a token is present then decode the token with verify function
   // verify takes two inputs:
   // Input 1 is the token to be decoded
   // Input 2 is the same secret with which the token was generated
   // Check the value of the decoded token yourself
-  let decodedToken = jwt.verify(token, "functionup-thorium");
+  let decodedToken = jwt.verify(token, "Not secret key");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -89,7 +83,8 @@ const postMessage = async function (req, res) {
   // Return a different error message in both these cases
   let token = req.headers["x-auth-token"]
   if (!token) return res.send({ status: false, msg: "token must be present in the request header" })
-  let decodedToken = jwt.verify(token, 'functionup-thorium')
+  let decodedToken = jwt.verify(token, 'Not secret key')
+  console.log(decodedToken)
 
   if (!decodedToken) return res.send({ status: false, msg: "token is not valid" })
 
