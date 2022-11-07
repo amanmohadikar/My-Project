@@ -9,7 +9,6 @@ const userModel = require("../models/userModel");
 const createUser = async function (req, res) {
   let data = req.body;
   let savedData = await userModel.create(data);
-  console.log(req.newAtribute);
   res.send({ msg: savedData });
 };
 
@@ -48,11 +47,7 @@ const loginUser = async function (req, res) {
   // The same secret will be used to decode tokens 
   let token = jwt.sign({
     userId: user._id.toString(),
-    batch: "thorium",
-    organisation: "FunctionUp",
-  },
-    "functionup-plutonium-very-very-secret-key"
-  );
+  }, "amanmohadikar");
   res.setHeader("x-auth-token", token);
   res.send({ status: true, token: token });
 };
@@ -82,7 +77,7 @@ const getUserData = async function (req, res) {
   // Decoding requires the secret again. 
   // A token can only be decoded successfully if the same secret was used to create(sign) that token.
   // And because this token is only known to the server, it can be assumed that if a token is decoded at server then this token must have been issued by the same server in past.
-  let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
+  let decodedToken = jwt.verify(token, "amanmohadikar");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -128,8 +123,12 @@ const updateUser = async function (req, res) {
 
 
 const deleteUser = async function (req, res) {
-  let userData = req.body;
-  let deletedUser = await userModel.findOneAndDelete(userData);
+  let userId = req.params.userId;
+  let user = await userModel.findById(userId)
+  if (!user) {
+    return res.send("No such user exist")
+  }
+  let deletedUser = await userModel.findOneAndUpdate({ _id: user }, { $set: { isDeleted: true } }, { new: true });
   res.send({ status: true, data: deletedUser });
 };
 
@@ -140,4 +139,3 @@ module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
 module.exports.deleteUser = deleteUser;
-
