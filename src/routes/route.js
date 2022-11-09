@@ -21,6 +21,7 @@ router.get("/cowin/getByDistrictId", CowinController.getDistrictId)
 
 router.post("/cowin/meme", CowinController.memeHandler)
 
+router.get("/cowin/getSortedArray/:cities", CowinController.getSortedArray)
 
 
 module.exports = router;
