@@ -34,11 +34,12 @@ const loginUser = async function (req, res) {
 
 
 const getUserData = async function (req, res) {
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
+  token = req.headers["x-auth-token"];
 
-  //If no token is present in the request header return error. This means the user is not logged in.
+  //If no token is present in the request header return error
   if (!token) return res.send({ status: false, msg: "token must be present" });
+
+  console.log("This is token :", token);
 
   console.log(token);
 
