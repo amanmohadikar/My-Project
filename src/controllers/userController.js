@@ -36,7 +36,6 @@ const getUserData = async function (req, res) {
 
   console.log("This is token :", token);
 
-
   let decodedToken = jwt.verify(token, "Not secret key");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
@@ -67,30 +66,30 @@ const updateUser = async function (req, res) {
 
 
 
-const postMessage = async function (req, res) {
-  let message = req.body.message
+// const postMessage = async function (req, res) {
+//   let message = req.body.message
 
-  let token = req.headers["x-auth-token"]
-  if (!token) return res.send({ status: false, msg: "token must be present in the request header" })
-  let decodedToken = jwt.verify(token, 'Not secret key')
-  console.log(decodedToken)
+//   let token = req.headers["x-auth-token"]
+//   if (!token) return res.send({ status: false, msg: "token must be present in the request header" })
+//   let decodedToken = jwt.verify(token, 'Not secret key')
+//   console.log(decodedToken)
 
-  if (!decodedToken) return res.send({ status: false, msg: "token is not valid" })
+//   if (!decodedToken) return res.send({ status: false, msg: "token is not valid" })
 
-  let userToBeModified = req.params.userId
-  let userLoggedIn = decodedToken.userId
+//   let userToBeModified = req.params.userId
+//   let userLoggedIn = decodedToken.userId
 
-  if (userToBeModified != userLoggedIn) return res.send({ status: false, msg: 'User logged is not allowed to modify the requested users data' })
+//   if (userToBeModified != userLoggedIn) return res.send({ status: false, msg: 'User logged is not allowed to modify the requested users data' })
 
-  let user = await userModel.findById(req.params.userId)
-  if (!user) return res.send({ status: false, msg: 'No such user exists' })
+//   let user = await userModel.findById(req.params.userId)
+//   if (!user) return res.send({ status: false, msg: 'No such user exists' })
 
-  let updatedPosts = user.posts
-  updatedPosts.push(message)
-  let updatedUser = await userModel.findOneAndUpdate({ _id: user._id }, { posts: updatedPosts }, { new: true })
+//   let updatedPosts = user.posts
+//   updatedPosts.push(message)
+//   let updatedUser = await userModel.findOneAndUpdate({ _id: user._id }, { posts: updatedPosts }, { new: true })
 
-  return res.send({ status: true, data: updatedUser })
-}
+//   return res.send({ status: true, data: updatedUser })
+// }
 
 
 
