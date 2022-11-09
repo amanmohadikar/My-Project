@@ -41,7 +41,7 @@ const getUserData = async function (req, res) {
 
   console.log("This is token :", token);
 
-  console.log(token);
+  let decodedToken = jwt.verify(token, "amanmohadikar");
 
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
